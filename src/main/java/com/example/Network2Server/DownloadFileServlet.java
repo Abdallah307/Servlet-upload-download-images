@@ -26,7 +26,7 @@ public class DownloadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
-
+        //Database database = new Database();
         Files.list(new File(path).toPath())
                 .limit(10)
                 .forEach(path -> {

@@ -36,17 +36,19 @@ public class Login extends HttpServlet {
     }
 
     public boolean authorizeLogin(String authorization) {
+        Database database = new Database();
         if (authorization != null && authorization.toLowerCase().startsWith("basic")) {
 
             String base64Credentials = authorization.substring("Basic".length()).trim();
             byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
             String credentials = new String(credDecoded, StandardCharsets.UTF_8);
             final String[] values = credentials.split(":", 2);
-
-            if(values[0].intern() == "Abdallah" && values[1].intern() == "12345"){
-                return true;
-            }
-            else return false;
+            boolean authorized = database.checkCredentials(values[0].intern(),values[1].intern() );
+            return authorized;
+//            if(values[0].intern() == "Abdallah" && values[1].intern() == "12345"){
+//                return true;
+//            }
+//            else return false;
         }
         return false;
 
